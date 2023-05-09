@@ -27,7 +27,7 @@ public class ArbolBinarioBusqueda {
 		raiz = this.insertarRec(raiz, dato);
 	}
 
-	private NodoArbol insertarRec(NodoArbol nodo, Alumno dato){
+	private NodoArbol insertarRec(NodoArbol nodo, Alumno dato) {
 		if (nodo == null) {     // Crear nuevo nodo
 			nodo = new NodoArbol(dato);
 		} else if (dato.getMatricula() < nodo.getDato().getMatricula()) {    // Subárbol izquierdo
@@ -49,7 +49,7 @@ public class ArbolBinarioBusqueda {
 		return getNumElementosRec(raiz);
 	}
 
-	private int getNumElementosRec(NodoArbol nodo){
+	private int getNumElementosRec(NodoArbol nodo) {
 		if (nodo == null)
 			return 0;
 		return 1 + getNumElementosRec(nodo.getIzquierdo()) + getNumElementosRec(nodo.getDerecho());
@@ -63,7 +63,7 @@ public class ArbolBinarioBusqueda {
 		return getNumMenoresRec(clave, raiz);
 	}
 
-	private int getNumMenoresRec(int clave, NodoArbol nodo){
+	private int getNumMenoresRec(int clave, NodoArbol nodo) {
 		if (nodo == null)
 			return 0;
 		else if (nodo.getDato().getMatricula() < clave)
@@ -92,12 +92,41 @@ public class ArbolBinarioBusqueda {
 	// ------------------------------------------------------------------------
 	// TODO 3.5: Devuelve el número de nodos del árbol con clave mayor que
 	// claveMinimo y menor que claveMaximo
+
+
+	public int getNumIntermedios(int min, int max) {
+		return getNumIntermediosRec(raiz, min, max);
+	}
+
+	private int getNumIntermediosRec(NodoArbol nodo, int min, int max) {
+		if (nodo == null) {
+			return 0;
+		} else if (nodo.getDato().getMatricula() < min) {
+			return getNumIntermediosRec(nodo.getDerecho(), min, max);
+		} else if (nodo.getDato().getMatricula() > max) {
+			return getNumIntermediosRec(nodo.getIzquierdo(), min, max);
+		} else {
+			return 1 + getNumIntermediosRec(nodo.getIzquierdo(), min, max) + getNumIntermediosRec(nodo.getDerecho(), min, max);
+		}
+	}
+}
+
+	/*
 	public int getNumIntermedios(int claveMinimo, int claveMaximo) {
 		return getNumIntermediosRec(claveMinimo, claveMaximo, raiz);
 	}
 
 	private int getNumIntermediosRec(int min, int max, NodoArbol nodo){
-		return getNumMenores(max) + getNumElementos() - getNumMenores(min);
+		return getNumElementos() - getNumMenores(min) - getNumMayores(max, nodo);
 	}
 
+	private int getNumMayores(int max, NodoArbol nodo){
+		if (nodo == null) {
+			return 0;
+		}
+		else if (nodo.getDato().getMatricula() > max)
+			return 1 + getNumElementosRec(nodo.getDerecho()) + getNumMayores(max, nodo.getIzquierdo());
+		else return getNumMayores(max, nodo.getDerecho());
+	}
 }
+*/
