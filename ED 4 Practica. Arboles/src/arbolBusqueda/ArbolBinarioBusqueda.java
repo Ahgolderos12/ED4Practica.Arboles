@@ -50,17 +50,9 @@ public class ArbolBinarioBusqueda {
 	}
 
 	private int getNumElementosRec(NodoArbol nodo){
-		int numElementos = 1; // Contamos el nodo actual
-
-		if (nodo.getIzquierdo() != null) { // Si tiene un hijo izquierdo
-			numElementos += getNumElementosRec(nodo.getIzquierdo()); // Sumamos los elementos del hijo izquierdo
-		}
-
-		if (nodo.getDerecho() != null) { // Si tiene un hijo derecho
-			numElementos += getNumElementosRec(nodo.getDerecho()); // Sumamos los elementos del hijo derecho
-		}
-
-		return numElementos;
+		if (nodo == null)
+			return 0;
+		return 1 + getNumElementosRec(nodo.getIzquierdo()) + getNumElementosRec(nodo.getDerecho());
 	}
 
 
@@ -74,11 +66,10 @@ public class ArbolBinarioBusqueda {
 	private int getNumMenoresRec(int clave, NodoArbol nodo){
 		if (nodo == null)
 			return 0;
-		else if (nodo.getDato().getMatricula() < clave) {
+		else if (nodo.getDato().getMatricula() < clave)
 			return 1 + getNumElementosRec(nodo.getIzquierdo()) + getNumMenoresRec(clave, nodo.getDerecho());
-		}else {
+		else
 			return getNumMenoresRec(clave, nodo.getIzquierdo());
-		}
 	}
 
 	// ------------------------------------------------------------------------
